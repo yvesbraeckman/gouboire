@@ -128,8 +128,12 @@
   transition: transform .3s, opacity .3s, background-color .35s;
 }
 
-.kop--open .hamburger__lijn:first-child { transform: translateY(4px) rotate(45deg); }
-.kop--open .hamburger__lijn:last-child { transform: translateY(-4px) rotate(-45deg); }
+/* De verborgen label-span is het eerste kind van de knop, dus :first-child
+   greep die in plaats van de bovenste streep — vandaar aparte klassen.
+   De strepen staan hart-op-hart 7,5px uit elkaar (1,5px streep + 6px gap),
+   dus elke streep schuift 3,75px naar het midden om een kruisje te vormen. */
+.kop--open .hamburger__lijn--boven { transform: translateY(3.75px) rotate(45deg); }
+.kop--open .hamburger__lijn--onder { transform: translateY(-3.75px) rotate(-45deg); }
 
 @media (min-width: 900px) {
   .nav { display: block; }

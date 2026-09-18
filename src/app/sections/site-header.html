@@ -15,8 +15,8 @@
     <button type="button" class="hamburger" (click)="toggle()"
             [attr.aria-expanded]="menuOpen()" aria-controls="mobiel-menu">
       <span class="visually-hidden">{{ menuOpen() ? 'Menu sluiten' : 'Menu openen' }}</span>
-      <span class="hamburger__lijn"></span>
-      <span class="hamburger__lijn"></span>
+      <span class="hamburger__lijn hamburger__lijn--boven"></span>
+      <span class="hamburger__lijn hamburger__lijn--onder"></span>
     </button>
   </div>
 </header>
