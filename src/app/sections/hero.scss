@@ -9,7 +9,7 @@
      svh houdt rekening met de adresbalk van mobiele browsers. */
   min-height: 100vh;
   min-height: 100svh;
-  padding-top: calc(var(--header-h) + var(--s-7));
+  padding-top: calc(var(--header-h) + var(--s-7) + env(safe-area-inset-top));
   padding-bottom: clamp(var(--s-8), 9vw, var(--s-10));
   overflow: hidden;
   isolation: isolate;

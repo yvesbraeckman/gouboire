@@ -12,6 +12,9 @@
   inset-inline: 0;
   top: 0;
   z-index: 90;
+  /* De pagina loopt tot in de statusbalk (viewport-fit=cover), dus de kop
+     moet zelf onder de notch vandaan blijven. */
+  padding-top: env(safe-area-inset-top);
   transition: background-color .35s, box-shadow .35s, border-color .35s;
   border-bottom: 1px solid transparent;
 }
@@ -142,7 +145,11 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: var(--s-8) var(--s-5);
+  padding:
+    calc(var(--s-8) + env(safe-area-inset-top))
+    max(var(--s-5), env(safe-area-inset-right))
+    calc(var(--s-8) + env(safe-area-inset-bottom))
+    max(var(--s-5), env(safe-area-inset-left));
   background: var(--c-paper-warm);
   animation: fade .3s ease both;
 }

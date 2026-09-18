@@ -59,7 +59,11 @@ const SLEUTEL = 'gouboire-leeftijd';
       z-index: 200;
       display: grid;
       place-items: center;
-      padding: var(--s-4);
+      padding:
+        calc(var(--s-4) + env(safe-area-inset-top))
+        max(var(--s-4), env(safe-area-inset-right))
+        calc(var(--s-4) + env(safe-area-inset-bottom))
+        max(var(--s-4), env(safe-area-inset-left));
       overflow-y: auto;
     }
 
