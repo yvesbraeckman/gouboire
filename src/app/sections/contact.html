@@ -32,31 +32,64 @@
       </dl>
     </div>
 
-    <form class="formulier" (submit)="verstuur($event)" novalidate>
-      <p class="formulier__melding">
-        Dit formulier is nog niet actief — de verzending wordt in een latere fase
-        aangesloten.
-      </p>
-
-      <div class="veld">
-        <label for="naam">Naam</label>
-        <input id="naam" name="naam" type="text" autocomplete="name"
-               [ngModel]="naam()" (ngModelChange)="naam.set($event)">
+    @if (status() === 'gelukt') {
+      <div class="formulier formulier--klaar" role="status">
+        <p class="klaar__titel">Bedankt, je bericht is verstuurd.</p>
+        <p class="klaar__tekst">
+          Kjell leest mee en antwoordt zo snel hij kan. Liever rechtstreeks?
+          <a href="mailto:kjell@gouboire.be">kjell&#64;gouboire.be</a>
+        </p>
+        <button type="button" class="btn btn--ghost" (click)="opnieuw()">
+          Nog een bericht sturen
+        </button>
       </div>
+    } @else {
+      <form class="formulier" (submit)="verstuur($event)" novalidate>
+        @if (status() === 'mislukt') {
+          <p class="formulier__melding formulier__melding--fout" role="alert">
+            Het versturen lukte niet. Probeer het zo nog eens, of mail
+            rechtstreeks naar <a href="mailto:kjell@gouboire.be">kjell&#64;gouboire.be</a>.
+          </p>
+        } @else if (fout()) {
+          <p class="formulier__melding formulier__melding--fout" role="alert">{{ fout() }}</p>
+        }
 
-      <div class="veld">
-        <label for="email">E-mail</label>
-        <input id="email" name="email" type="email" autocomplete="email"
-               [ngModel]="email()" (ngModelChange)="email.set($event)">
-      </div>
+        <div class="veld">
+          <label for="contact-naam">Naam</label>
+          <input id="contact-naam" name="naam" type="text" autocomplete="name" required
+                 [value]="naam()" (input)="naam.set($any($event.target).value)">
+        </div>
 
-      <div class="veld">
-        <label for="bericht">Bericht</label>
-        <textarea id="bericht" name="bericht" rows="5"
-                  [ngModel]="bericht()" (ngModelChange)="bericht.set($event)"></textarea>
-      </div>
+        <div class="veld">
+          <label for="contact-email">E-mail</label>
+          <input id="contact-email" name="email" type="email" autocomplete="email" required
+                 [value]="email()" (input)="email.set($any($event.target).value)">
+        </div>
 
-      <button type="submit" class="btn btn--primary">Bericht versturen</button>
-    </form>
+        <div class="veld">
+          <label for="contact-bericht">Bericht</label>
+          <textarea id="contact-bericht" name="bericht" rows="5" required
+                    [value]="bericht()" (input)="bericht.set($any($event.target).value)"></textarea>
+        </div>
+
+        <!-- Lokvak: onzichtbaar en niet bereikbaar met toetsenbord of
+             schermlezer. Vult een bot het in, dan versturen we niets. -->
+        <div class="visually-hidden" aria-hidden="true">
+          <label for="contact-website">Laat dit veld leeg</label>
+          <input id="contact-website" name="website" type="text" tabindex="-1"
+                 autocomplete="off"
+                 [value]="lokvak()" (input)="lokvak.set($any($event.target).value)">
+        </div>
+
+        <button type="submit" class="btn btn--primary" [disabled]="status() === 'bezig'">
+          {{ status() === 'bezig' ? 'Versturen…' : 'Bericht versturen' }}
+        </button>
+
+        <p class="formulier__privacy">
+          Je gegevens worden enkel doorgemaild naar Kjell, niet bewaard op deze site.
+        </p>
+      </form>
+    }
+
   </div>
 </section>

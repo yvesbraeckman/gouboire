@@ -66,6 +66,28 @@
   color: var(--c-ink-soft);
 }
 
+.formulier__melding--fout { color: var(--c-ink); }
+
+.formulier__privacy {
+  font-size: .8rem;
+  color: var(--c-ink-soft);
+}
+
+/* --- Na het versturen --------------------------------------------- */
+
+/* Zelfde kader als het formulier, zodat de kolom niet verspringt. */
+.formulier--klaar { gap: var(--s-3); }
+
+.klaar__titel {
+  font-family: var(--f-serif);
+  font-size: clamp(1.3rem, 1.1rem + .8vw, 1.6rem);
+  line-height: 1.2;
+}
+
+.klaar__tekst { color: var(--c-ink-soft); }
+
+.btn[disabled] { opacity: .6; cursor: default; transform: none; }
+
 .veld { display: grid; gap: var(--s-1); }
 
 .veld label {
