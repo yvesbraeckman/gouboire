@@ -1,0 +1,107 @@
+:host { display: block; }
+
+.contact__grid {
+  display: grid;
+  gap: clamp(var(--s-6), 6vw, var(--s-8));
+}
+
+.contact__titel { margin-top: var(--s-3); }
+.contact__regel { margin-top: var(--s-4); }
+.contact__lead { margin-top: var(--s-4); max-width: 38ch; }
+
+/* --- Gegevens ---------------------------------------------------- */
+
+.gegevens { margin-top: var(--s-6); display: grid; gap: var(--s-4); }
+
+.gegeven { padding-top: var(--s-3); border-top: 1px solid var(--c-line-soft); }
+
+.gegeven dt {
+  font-family: var(--f-brand);
+  font-size: .68rem;
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--c-ink-soft);
+}
+
+.gegeven dd { margin: var(--s-1) 0 0; }
+
+.gegeven a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--c-line);
+  transition: border-color .25s, color .25s;
+}
+
+.gegeven a:hover {
+  color: var(--c-terracotta-ink);
+  border-bottom-color: currentColor;
+}
+
+.gegeven__route {
+  display: inline-block;
+  margin-top: var(--s-1);
+  font-family: var(--f-brand);
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--c-terracotta-ink);
+}
+
+/* --- Formulier ---------------------------------------------------- */
+
+.formulier {
+  padding: clamp(var(--s-5), 4vw, var(--s-7));
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-paper-warm);
+  display: grid;
+  gap: var(--s-4);
+  align-content: start;
+}
+
+.formulier__melding {
+  padding: var(--s-2) var(--s-3);
+  border-left: 2px solid var(--c-terracotta);
+  background: rgba(180, 85, 45, .07);
+  font-size: .88rem;
+  color: var(--c-ink-soft);
+}
+
+.veld { display: grid; gap: var(--s-1); }
+
+.veld label {
+  font-family: var(--f-brand);
+  font-size: .72rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--c-ink-soft);
+}
+
+.veld input,
+.veld textarea {
+  width: 100%;
+  padding: .7rem .9rem;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: var(--c-paper);
+  color: var(--c-ink);
+  font-family: var(--f-sans);
+  font-size: 1rem;
+  transition: border-color .25s;
+}
+
+.veld textarea { resize: vertical; min-height: 8rem; }
+
+.veld input:hover,
+.veld textarea:hover { border-color: var(--c-ink-soft); }
+
+.formulier .btn { justify-self: start; }
+
+@media (min-width: 900px) {
+  .contact__grid { grid-template-columns: 1fr 1fr; gap: var(--s-9); }
+  .gegevens { grid-template-columns: repeat(2, 1fr); gap: var(--s-4) var(--s-5); }
+
+  /* Drie gegevens in twee kolommen: het adres krijgt de hele onderste rij,
+     zodat er rechts geen gat valt en de twee adresregels plus de routelink
+     ruimte hebben. */
+  .gegeven:last-child { grid-column: 1 / -1; }
+}

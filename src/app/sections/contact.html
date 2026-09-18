@@ -1,0 +1,62 @@
+<section class="contact section" id="contact">
+  <div class="container contact__grid">
+
+    <div class="contact__intro">
+      <p class="eyebrow">Contact</p>
+      <h2 class="h2 contact__titel">Laten we proeven</h2>
+      <hr class="regel contact__regel">
+
+      <p class="lead contact__lead">
+        Een vraag over een fles, advies bij een gerecht of zin om samen iets open te
+        trekken? Ik hoor het graag.
+      </p>
+
+      <dl class="gegevens">
+        <div class="gegeven">
+          <dt>E-mail</dt>
+          <dd><a href="mailto:kjell@gouboire.be">kjell&#64;gouboire.be</a></dd>
+        </div>
+        <div class="gegeven">
+          <dt>Telefoon</dt>
+          <dd><a href="tel:+32477773933">+32 477 77 39 33</a></dd>
+        </div>
+        <div class="gegeven">
+          <dt>Adres</dt>
+          <dd>
+            Fransveld 9<br>2870 Puurs-Sint-Amands<br>
+            <a class="gegeven__route"
+               href="https://www.google.com/maps/search/?api=1&amp;query=Fransveld+9,+2870+Puurs-Sint-Amands"
+               target="_blank" rel="noopener">Route</a>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <form class="formulier" (submit)="verstuur($event)" novalidate>
+      <p class="formulier__melding">
+        Dit formulier is nog niet actief — de verzending wordt in een latere fase
+        aangesloten.
+      </p>
+
+      <div class="veld">
+        <label for="naam">Naam</label>
+        <input id="naam" name="naam" type="text" autocomplete="name"
+               [ngModel]="naam()" (ngModelChange)="naam.set($event)">
+      </div>
+
+      <div class="veld">
+        <label for="email">E-mail</label>
+        <input id="email" name="email" type="email" autocomplete="email"
+               [ngModel]="email()" (ngModelChange)="email.set($event)">
+      </div>
+
+      <div class="veld">
+        <label for="bericht">Bericht</label>
+        <textarea id="bericht" name="bericht" rows="5"
+                  [ngModel]="bericht()" (ngModelChange)="bericht.set($event)"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn--primary">Bericht versturen</button>
+    </form>
+  </div>
+</section>

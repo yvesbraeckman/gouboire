@@ -1,0 +1,131 @@
+:host { display: block; }
+
+/* Groene band: na de donkere Zuid-Afrika-sectie zijn assortiment, events en
+   contact alle drie crème. Deze band breekt die lange bleke strook.
+   Bewust --c-olive-deep en niet het lichtere --c-olive: daarop haalt
+   --c-gold-light maar 3,2:1, ruim onder AA. */
+.events {
+  /* relative + hidden dragen het watermerk: het loopt tegen de rechterrand af
+     en mag geen horizontale scroll veroorzaken. */
+  position: relative;
+  overflow: hidden;
+  color: var(--c-paper);
+  background-color: var(--c-olive-deep);
+  background-image: linear-gradient(
+    180deg,
+    rgba(247, 241, 231, .05) 0%,
+    transparent 32%,
+    rgba(0, 0, 0, .12) 100%
+  );
+}
+
+/* Boven het watermerk: een absoluut gepositioneerd element schildert anders
+   over statische inhoud heen. */
+.events__inhoud { position: relative; z-index: 1; }
+
+.events__kop { max-width: 46ch; }
+.events__titel { margin-top: var(--s-3); }
+.events__regel { margin-top: var(--s-4); }
+
+.events__lead {
+  margin-top: var(--s-4);
+  max-width: 42ch;
+  color: rgba(247, 241, 231, .82);
+}
+
+/* --- De agenda ---------------------------------------------------- */
+
+.agenda {
+  list-style: none;
+  margin: clamp(var(--s-6), 6vw, var(--s-8)) 0 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(var(--s-5), 5vw, var(--s-7));
+}
+
+.event {
+  display: grid;
+  gap: var(--s-3);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--c-line-light);
+}
+
+/* Datumblok: het cijfer draagt, de maand is het label eronder. */
+.event__datum {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-2);
+}
+
+.event__dag {
+  font-family: var(--f-serif);
+  font-size: 2.4rem;
+  line-height: 1;
+  color: var(--c-paper);
+}
+
+.event__maand {
+  font-family: var(--f-brand);
+  font-size: .7rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--c-gold-light);
+}
+
+.event__titel {
+  font-family: var(--f-serif);
+  font-size: clamp(1.4rem, 1.1rem + 1vw, 1.9rem);
+  font-weight: 400;
+}
+
+.event__meta {
+  margin-top: var(--s-2);
+  font-family: var(--f-brand);
+  font-size: .74rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--c-gold-light);
+}
+
+.event__plaats {
+  margin-top: var(--s-1);
+  color: rgba(247, 241, 231, .82);
+}
+
+.event__tekst {
+  margin-top: var(--s-3);
+  max-width: 62ch;
+  color: rgba(247, 241, 231, .78);
+}
+
+/* --- Lege agenda --------------------------------------------------- */
+
+.kaart {
+  display: flex;
+  align-items: center;
+  gap: var(--s-4);
+  padding: clamp(var(--s-4), 4vw, var(--s-6));
+  border: 1px solid var(--c-line-light);
+  border-radius: var(--r-md);
+}
+
+.kaart__accent {
+  flex: none;
+  width: clamp(36px, 7vw, 52px);
+  color: var(--c-gold-light);
+  opacity: .72;
+}
+
+.kaart__tekst { margin: 0; color: rgba(247, 241, 231, .82); }
+
+@media (min-width: 760px) {
+  /* Datumblok links, tekst rechts — duidelijk anders dan de Zuid-Afrika-band,
+     zodat de twee groene secties niet op elkaar lijken. */
+  .event {
+    grid-template-columns: 120px 1fr;
+    gap: var(--s-6);
+    align-items: start;
+  }
+
+  .event__datum { flex-direction: column; align-items: flex-start; gap: var(--s-1); }
+}

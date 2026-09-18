@@ -1,0 +1,49 @@
+<section class="verhaal section" id="verhaal">
+  <div class="container">
+
+    <div class="intro">
+      <div class="intro__tekst">
+        <p class="eyebrow">Mijn verhaal</p>
+        <h2 class="h2 intro__titel">Mijn naam is Kjell</h2>
+        <hr class="regel intro__regel">
+        <div class="prose intro__prose">
+          <p>
+            Ik ben de oprichter van Gouboire, een wijnhandel met een sterke focus op
+            Zuid-Afrikaanse wijnen, aangevuld met een zorgvuldig geselecteerd aanbod
+            uit Europa.
+          </p>
+          <p>
+            Achter elke fles schuilt voor mij een verhaal &ndash; en dat verhaal begint
+            lang voor Gouboire bestond.
+          </p>
+        </div>
+      </div>
+
+      <img class="intro__foto" src="beeld/portret-kjell.jpg"
+           width="764" height="773" loading="lazy"
+           alt="Kjell, lachend met een glas wijn in de hand, in hemd en gilet.">
+    </div>
+
+    <ol class="stappen">
+      @for (stap of stappen; track stap.nr) {
+        <li class="stap">
+          <div class="stap__marge" aria-hidden="true">
+            <span class="stap__nr">{{ stap.nr }}</span>
+            @if (stap.accent === 'rank') {
+              <app-icon-vine class="stap__accent" />
+            } @else {
+              <app-icon-grapes class="stap__accent" />
+            }
+          </div>
+
+          <div class="stap__body prose">
+            <h3 class="h3 stap__titel">{{ stap.titel }}</h3>
+            @for (alinea of stap.alineas; track $index) {
+              <p>{{ alinea }}</p>
+            }
+          </div>
+        </li>
+      }
+    </ol>
+  </div>
+</section>

@@ -41,3 +41,21 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# node_modules staat in .nosync zodat iCloud het niet synchroniseert
+/node_modules.nosync
+
+# iCloud maakt bij conflicten kopieën met " 2" in de naam; die horen nergens.
+*\ 2.jpg
+*\ 2.png
+/dist\ 2
+
+# Export van de site, opnieuw te maken uit de build.
+gouboire-website.pdf
+
+# Originelen van de packshots. Alles in public/ wordt mee gepubliceerd, en de
+# bewerkte versies (wijn-*.png) zijn wat de site gebruikt.
+/public/beeld/AtaraxiaSauvignon-Blanc-2026.png
+/public/beeld/LaBrune_PinotNoir.png
+/public/beeld/Raats\ Old\ Vine\ Chenin\ Blanc-new.jpeg
+/public/beeld/wijn-raats-chenin-blanc-removebg-preview.png

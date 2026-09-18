@@ -1,0 +1,43 @@
+<section class="za section" id="zuid-afrika">
+  <app-icon-mountains class="za__horizon" [flat]="true" />
+  <span class="logo logo--embleem logo--watermerk" aria-hidden="true"></span>
+
+  <div class="container za__grid">
+    <div class="za__links">
+      <header class="za__kop">
+        <p class="eyebrow eyebrow--light">Het hart van het assortiment</p>
+        <h2 class="h2 za__titel">Zuid-Afrika</h2>
+        <hr class="regel regel--licht za__regel">
+      </header>
+
+      <div class="kaart">
+        <app-icon-south-africa class="kaart__contour" />
+      </div>
+    </div>
+
+    <div class="za__rechts">
+      <div class="za__tekst prose">
+        <p>
+          Mijn passie voor Zuid-Afrika ontstond eerder toevallig. Via een vriend kwam
+          ik in contact met een invoerder van Zuid-Afrikaanse wijnen, wat uiteindelijk
+          leidde tot een eerste reis naar dit adembenemende wijnland.
+        </p>
+        <p>
+          De diversiteit, het vakmanschap en de eigenzinnige stijl van de
+          Zuid-Afrikaanse wijnmakers overtuigden me meteen. Sindsdien vormen zij het
+          hart van mijn assortiment.
+        </p>
+      </div>
+
+      <ul class="pijlers">
+        @for (pijler of pijlers; track pijler.titel; let i = $index) {
+          <li class="pijler">
+            <span class="pijler__nr">0{{ i + 1 }}</span>
+            <h3 class="pijler__titel">{{ pijler.titel }}</h3>
+            <p class="pijler__tekst">{{ pijler.tekst }}</p>
+          </li>
+        }
+      </ul>
+    </div>
+  </div>
+</section>

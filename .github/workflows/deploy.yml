@@ -1,0 +1,49 @@
+name: Bouwen en publiceren
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Wat de publicatiestap nodig heeft om naar Pages te schrijven.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Nooit twee publicaties tegelijk; een nieuwe push vervangt een lopende.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  bouwen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      # npm ci in plaats van npm install: installeert exact wat in
+      # package-lock.json staat, zodat een build van vandaag hetzelfde
+      # oplevert als een build van volgend jaar.
+      - run: npm ci
+
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/gouboire/browser
+
+  publiceren:
+    needs: bouwen
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.publicatie.outputs.page_url }}
+    steps:
+      - id: publicatie
+        uses: actions/deploy-pages@v4

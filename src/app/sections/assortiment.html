@@ -1,0 +1,75 @@
+<section class="assortiment section" id="assortiment">
+  <div class="container">
+
+    <div class="kop">
+      <p class="eyebrow">Het assortiment</p>
+      <h2 class="h2 kop__titel">Twee werelden, één selectie</h2>
+      <hr class="regel kop__regel">
+      <p class="kop__intro">
+        Wijnen met karakter, geselecteerd met kennis, liefde voor het product en
+        respect voor de wijnmaker. Wijnen die uitnodigen om te delen, om momenten
+        te creëren en om simpelweg te genieten.
+      </p>
+    </div>
+
+    <div class="regios">
+      @for (regio of regios; track regio.naam) {
+        <article class="regio">
+          <div class="regio__art" aria-hidden="true">
+            @if (regio.motief === 'bergen') {
+              <app-icon-mountains />
+            } @else {
+              <app-icon-vine />
+            }
+          </div>
+
+          <p class="regio__rol">{{ regio.rol }}</p>
+          <h3 class="regio__naam">{{ regio.naam }}</h3>
+          <p class="regio__tekst">{{ regio.tekst }}</p>
+        </article>
+      }
+    </div>
+
+    <div class="kijker">
+      <div class="kijker__kop">
+        <h3 class="h3 kijker__titel">Een kijk in het aanbod</h3>
+        <p class="kijker__lead">
+          Vier wijnen uit Zuid-Afrika die laten zien waar het om draait. Het
+          volledige aanbod, Europa inbegrepen, staat in de catalogus hieronder.
+        </p>
+      </div>
+
+      <ul class="wijnen">
+        @for (w of uitgelicht; track w.wijn) {
+          <li class="wijn">
+            @if (w.foto) {
+              <div class="wijn__beeld">
+                <img [src]="w.foto" [alt]="w.wijn + ' van ' + w.huis"
+                     width="480" height="600" loading="lazy">
+              </div>
+            } @else {
+              <app-photo-slot class="wijn__beeld" ratio="4 / 5" motif="fles" caption="" />
+            }
+
+            <p class="wijn__huis">{{ w.huis }}</p>
+            <h4 class="wijn__naam">{{ w.wijn }}</h4>
+            <p class="wijn__herkomst">{{ w.streek }} &middot; {{ w.land }}</p>
+            <p class="wijn__tekst">{{ w.tekst }}</p>
+          </li>
+        }
+      </ul>
+    </div>
+
+    <div class="catalogus">
+      <div class="catalogus__kop">
+        <h3 class="h3 catalogus__titel">De volledige catalogus</h3>
+        <p class="catalogus__lead">
+          Alles wat er in de kelder ligt, per regio geordend, om rustig door te
+          nemen of door te sturen.
+        </p>
+      </div>
+
+      <app-catalogus-download [documenten]="catalogi" />
+    </div>
+  </div>
+</section>

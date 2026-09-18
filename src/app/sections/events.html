@@ -1,0 +1,38 @@
+<section class="events section" id="events">
+  <span class="logo logo--embleem logo--watermerk" aria-hidden="true"></span>
+
+  <div class="container events__inhoud">
+    <div class="events__kop">
+      <p class="eyebrow eyebrow--light">Events</p>
+      <h2 class="h2 events__titel">Proeven doe je samen</h2>
+      <hr class="regel regel--licht events__regel">
+      <p class="lead events__lead">
+        Degustaties, wijnavonden en beurzen &ndash; de momenten om samen aan tafel
+        te schuiven en te ontdekken.
+      </p>
+    </div>
+
+    <ul class="agenda">
+      @for (e of komende; track e.datum) {
+        <li class="event">
+          <p class="event__datum" aria-hidden="true">
+            <span class="event__dag">{{ e.dag }}</span>
+            <span class="event__maand">{{ e.maand }}</span>
+          </p>
+
+          <div class="event__body">
+            <h3 class="event__titel">{{ e.titel }}</h3>
+            <p class="event__meta">{{ e.voluit }} &middot; {{ e.tijd }}</p>
+            <p class="event__plaats">{{ e.plaats }}</p>
+            <p class="event__tekst">{{ e.tekst }}</p>
+          </div>
+        </li>
+      } @empty {
+        <li class="kaart">
+          <app-icon-grapes class="kaart__accent" />
+          <p class="kaart__tekst">De agenda wordt binnenkort aangevuld.</p>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

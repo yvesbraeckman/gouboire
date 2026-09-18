@@ -1,0 +1,331 @@
+/* ---------------------------------------------------------------
+   Gouboire — basis & gedeelde bouwstenen
+   --------------------------------------------------------------- */
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--c-paper);
+  color: var(--c-ink);
+  font-family: var(--f-sans);
+  font-size: 17px;
+  line-height: 1.75;
+  font-weight: 380;
+  overflow-x: hidden;
+}
+
+/* Papierkorrel over de hele pagina — geeft de artisanale textuur. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.038;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+h1, h2, h3, h4, blockquote, figure, p, ul, ol {
+  margin: 0;
+}
+
+p { text-wrap: pretty; }
+
+/* Alle koppen in dezelfde schreefletter, in onderkast: rustiger en strakker
+   dan de gespatieerde kapitalen van daarvoor. Het logo houdt zijn eigen stem;
+   de pagina hoeft die niet te herhalen. */
+h1, h2, h3, h4 {
+  font-family: var(--f-serif);
+  font-weight: 400;
+  line-height: 1.14;
+  letter-spacing: -0.015em;
+  font-variation-settings: 'SOFT' 20, 'WONK' 0;
+  text-wrap: balance;
+}
+
+h1 { line-height: 1.08; }
+
+a { color: inherit; }
+
+img, svg { display: block; max-width: 100%; }
+
+::selection {
+  background: var(--c-terracotta);
+  color: var(--c-paper);
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-terracotta-ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Layout ---------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--w-page);
+  margin-inline: auto;
+  padding-inline: var(--s-4);
+}
+
+@media (min-width: 640px) {
+  .container { padding-inline: var(--s-6); }
+}
+
+.section {
+  position: relative;
+  padding-block: clamp(var(--s-8), 9vw, var(--s-11));
+  scroll-margin-top: var(--header-h);
+}
+
+.prose {
+  max-width: var(--w-text);
+}
+
+.prose p + p { margin-top: var(--s-3); }
+
+/* Uitvullen van lopende tekst. Alleen vanaf een ruime regelbreedte: op smalle
+   schermen worden de woordgaten te groot. hyphens is hier geen luxe maar
+   noodzaak — het Nederlands heeft lange samenstellingen, en zonder afbreken
+   ontstaan er rivieren in de tekst. Werkt dankzij lang="nl" op <html>. */
+@media (min-width: 640px) {
+  .prose p,
+  .uitgevuld {
+    text-align: justify;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+  }
+
+  /* Leadalinea's staan groter en in een smallere kolom — gemeten zo'n 40 tekens
+     per regel tegenover 49-62 voor de gewone tekst. Uitvullen levert daar juist
+     lelijke gaten op, dus die blijven links uitgelijnd. */
+  .intro__prose p:first-child,
+  .za__tekst p:first-child {
+    text-align: left;
+    -webkit-hyphens: manual;
+    hyphens: manual;
+  }
+}
+
+/* --- Tekstbouwstenen ------------------------------------------- */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  font-family: var(--f-brand);
+  font-size: var(--f-small);
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-terracotta-ink);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.eyebrow--light { color: var(--c-gold-light); }
+.eyebrow--olive { color: var(--c-olive); }
+
+.display { font-size: var(--f-display); }
+.h2 { font-size: var(--f-h2); }
+.h3 { font-size: var(--f-h3); }
+
+.lead {
+  font-size: var(--f-lead);
+  color: var(--c-ink-soft);
+  line-height: 1.65;
+}
+
+.muted { color: var(--c-ink-soft); }
+
+/* --- Knoppen ---------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  padding: 0.85rem 1.6rem;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-family: var(--f-brand);
+  font-size: 0.92rem;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s, transform 0.25s;
+}
+
+.btn:hover { transform: translateY(-2px); }
+
+.btn--primary {
+  background: var(--c-terracotta);
+  color: var(--c-paper);
+}
+
+.btn--primary:hover { background: var(--c-terracotta-ink); }
+
+.btn--ghost {
+  /* transparent, want op een <button> zou anders de grijze
+     standaardachtergrond van de browser doorschemeren. */
+  background: transparent;
+  border-color: var(--c-line);
+  color: var(--c-ink);
+}
+
+.btn--ghost:hover {
+  border-color: var(--c-terracotta-ink);
+  color: var(--c-terracotta-ink);
+}
+
+.btn--light {
+  border-color: var(--c-line-light);
+  color: var(--c-paper);
+}
+
+.btn--light:hover {
+  background: var(--c-paper);
+  color: var(--c-ink);
+}
+
+/* --- Fijne lijn ------------------------------------------------- */
+
+/* Vervangt de handgetekende krul: één dunne streep, meer rust. */
+.regel {
+  width: 64px;
+  height: 1px;
+  border: 0;
+  margin: 0;
+  background: var(--c-gold);
+}
+
+.regel--midden { margin-inline: auto; }
+.regel--licht { background: var(--c-gold-light); opacity: 0.85; }
+
+/* --- Placeholder voor nog aan te leveren content ---------------- */
+
+.todo {
+  display: inline-block;
+  padding: 0.1em 0.5em;
+  border: 1px dashed var(--c-line);
+  border-radius: var(--r-sm);
+  background: rgba(180, 85, 45, 0.06);
+  color: var(--c-ink-soft);
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.todo--light {
+  border-color: var(--c-line-light);
+  background: rgba(247, 241, 231, 0.07);
+  color: rgba(247, 241, 231, 0.75);
+}
+
+/* --- Toegankelijkheid ------------------------------------------ */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  top: var(--s-2);
+  left: var(--s-2);
+  z-index: 200;
+  padding: 0.6rem 1rem;
+  background: var(--c-ink);
+  color: var(--c-paper);
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+/* --- Merkbeeld --------------------------------------------------- */
+
+.logo {
+  display: block;
+  background-color: currentColor;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+.logo--woordmerk {
+  aspect-ratio: 2589 / 698;
+  -webkit-mask-image: url('/logo/gouboire-woordmerk.png');
+  mask-image: url('/logo/gouboire-woordmerk.png');
+}
+
+/* Woordmerk mét de slogan 'wijnbeleving'. Als SVG-masker: scherp op elke
+   maat, en de kleur volgt currentColor zodat hetzelfde bestand licht op de
+   donkere kop en op de voet kan staan. */
+.logo--volledig {
+  aspect-ratio: 646.99 / 174.26;
+  -webkit-mask-image: url('/logo/gouboire-logo-slogan.svg');
+  mask-image: url('/logo/gouboire-logo-slogan.svg');
+}
+
+.logo--embleem {
+  aspect-ratio: 500 / 1108;
+  -webkit-mask-image: url('/logo/gouboire-embleem.png');
+  mask-image: url('/logo/gouboire-embleem.png');
+}
+
+/* Fluisterzacht merkteken als achtergrondtextuur in de donkere banden. Groot,
+   tegen de rechterrand en er deels aflopend — de sectie moet daarom
+   `position: relative` én `overflow: hidden` hebben, anders ontstaat er
+   horizontale scroll. De verhouding komt van .logo--embleem, dus de breedte
+   volgt uit de hoogte. */
+.logo--watermerk {
+  position: absolute;
+  right: -3%;
+  top: 50%;
+  translate: 0 -50%;
+  height: 86%;
+  width: auto;
+  opacity: .05;
+  pointer-events: none;
+}
+
+/* Op smalle schermen is er geen lege kolom: daar valt het merkteken pal achter
+   de lopende tekst. Het schuift dus grotendeels buiten beeld en zakt nog wat in
+   dekking, zodat er alleen textuur aan de rand overblijft. */
+@media (max-width: 759px) {
+  .logo--watermerk { right: -32%; height: 58%; opacity: .035; }
+}

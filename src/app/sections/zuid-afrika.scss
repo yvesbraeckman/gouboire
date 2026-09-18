@@ -1,0 +1,110 @@
+:host { display: block; }
+
+.za {
+  position: relative;
+  overflow: hidden;
+  color: var(--c-paper);
+  /* Verloop bovenop het token in plaats van losse hexkleuren: licht van boven,
+     donker naar de voet, zodat de band diepte krijgt zonder foto. */
+  background-color: var(--c-olive-deep);
+  background-image: linear-gradient(
+    180deg,
+    rgba(247, 241, 231, .05) 0%,
+    transparent 32%,
+    rgba(0, 0, 0, .12) 100%
+  );
+  padding-bottom: clamp(var(--s-9), 12vw, var(--s-12));
+}
+
+/* De enige decoratielaag naast de kaart: een vloer, geen onderwerp. */
+.za__horizon {
+  position: absolute;
+  inset-inline: -4%;
+  bottom: 0;
+  width: 108%;
+  height: clamp(60px, 7vw, 110px);
+  color: var(--c-paper);
+  opacity: .04;
+  pointer-events: none;
+}
+
+.za__grid { position: relative; z-index: 1; }
+
+.za__titel {
+  margin-top: var(--s-3);
+  font-size: var(--f-h2);
+}
+
+.za__regel { margin-top: var(--s-4); }
+
+.za__tekst {
+  margin-top: var(--s-5);
+  color: rgba(247, 241, 231, .82);
+}
+
+.za__tekst p:first-child { color: var(--c-paper); font-size: var(--f-lead); }
+
+/* --- De kaart ----------------------------------------------------- */
+
+.kaart { margin-top: clamp(var(--s-6), 6vw, var(--s-8)); }
+
+.kaart__contour {
+  width: clamp(220px, 34vw, 420px);
+  color: var(--c-paper);
+  opacity: .9;
+}
+
+/* --- Pijlers ----------------------------------------------------- */
+
+.pijlers {
+  list-style: none;
+  margin: clamp(var(--s-6), 6vw, var(--s-8)) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-5);
+}
+
+.pijler {
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--c-line-light);
+}
+
+.pijler__nr {
+  font-family: var(--f-brand);
+  font-size: .68rem;
+  letter-spacing: .26em;
+  color: var(--c-gold-light);
+}
+
+.pijler__titel {
+  margin-top: var(--s-2);
+  font-family: var(--f-serif);
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.pijler__tekst {
+  margin-top: var(--s-2);
+  color: rgba(247, 241, 231, .74);
+  font-size: .95rem;
+}
+
+/* Tussengebied: de sectie is nog één kolom, dus de pijlers als triptiek. */
+@media (min-width: 760px) and (max-width: 959px) {
+  .pijlers { grid-template-columns: repeat(3, 1fr); gap: var(--s-6); }
+}
+
+@media (min-width: 960px) {
+  /* Twee kolommen die elk hun eigen hoogte volgen: links de plaat (titel +
+     kaart), rechts de tekstkolom (intro + pijlers). Gedeelde grid-rijen zouden
+     de kaart pas laten beginnen onder de hele tekst — vandaar twee wrappers in
+     plaats van vier losse grid-items. */
+  .za__grid {
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    column-gap: var(--s-9);
+    align-items: start;
+  }
+
+  .za__tekst { margin-top: var(--s-3); }
+}

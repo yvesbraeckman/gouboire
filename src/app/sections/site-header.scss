@@ -1,0 +1,186 @@
+:host { display: block; }
+
+/* De logobreedte stuurt zowel de balkhoogte als de uitlijning van de
+   navigatie; zie .nav hieronder. De lockup is 3,713 : 1. */
+.kop {
+  /* De vw-term blijft bewust 20vw: bij 24vw haalt het logo zijn volle breedte
+     al rond 880px — net waar de navigatie vanaf 900px verschijnt, en dan passen
+     ze niet meer naast elkaar. Zo komt die maat pas rond 1060px. */
+  --logo-w: clamp(165px, 20vw, 212px);
+
+  position: fixed;
+  inset-inline: 0;
+  top: 0;
+  z-index: 90;
+  transition: background-color .35s, box-shadow .35s, border-color .35s;
+  border-bottom: 1px solid transparent;
+}
+
+/* Zodra de balk papier wordt, condenseert hij: kleiner logo, strakkere balk. */
+.kop--vast {
+  --logo-w: clamp(132px, 16vw, 140px);
+
+  background: rgba(247, 241, 231, .92);
+  backdrop-filter: blur(10px);
+  border-bottom-color: var(--c-line-soft);
+}
+
+.kop--open { background: transparent; border-bottom-color: transparent; }
+
+/* Gecentreerd op het logo. Dat werkt nu het logo kleiner is: de staart onder
+   de letters weegt op deze maat licht genoeg om de navigatie niet meer scheef
+   te doen ogen. */
+.kop__balk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-4);
+  min-height: var(--header-h);
+  padding-block: var(--s-3);
+  transition: padding .35s;
+}
+
+.kop--vast .kop__balk { padding-block: .75rem; }
+
+/* Het logo draagt de slogan 'wijnbeleving' zelf, dus er staat geen losse
+   subtitel meer onder. Iets breder dan het oude woordmerk, want er zit nu
+   meer in hetzelfde kader. */
+.merk {
+  display: grid;
+  width: var(--logo-w);
+  color: var(--c-ink);
+  text-decoration: none;
+  transition: color .35s, width .35s;
+}
+
+/* Boven de herofoto: lichte uitvoering. Zodra de kop een papieren
+   achtergrond krijgt (of het mobiele menu open staat) weer inkt. */
+.kop:not(.kop--vast):not(.kop--open) {
+  .merk { color: var(--c-paper); }
+  .nav a { color: var(--c-paper); }
+  .nav a::after { background: var(--c-gold-light); }
+  .hamburger__lijn { background: var(--c-paper); }
+}
+
+.merk__logo { width: 100%; }
+
+.nav { display: none; }
+
+.nav ul {
+  display: flex;
+  gap: var(--s-5);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  /* Moet hier staan, niet alleen op de link: het lijnvak van de li wordt
+     bepaald door de regelhoogte van de li zelf. Met de geërfde 1.75 blijft er
+     anders ruim 4 px loze ruimte boven de tekst staan. */
+  line-height: 1;
+}
+
+.nav a {
+  position: relative;
+  font-family: var(--f-brand);
+  font-size: .8rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  /* Regelafstand 1 houdt het linkvak strak rond de tekst, zodat centreren de
+     tekst centreert en de hover-onderstreping dicht bij de letters blijft. */
+  line-height: 1;
+  padding-block: .35rem;
+}
+
+.nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--c-terracotta);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s;
+}
+
+.nav a:hover::after { transform: scaleX(1); }
+
+.hamburger {
+  display: grid;
+  gap: 6px;
+  width: 44px;
+  height: 44px;
+  padding: 13px 10px;
+  align-content: center;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.hamburger__lijn {
+  display: block;
+  height: 1.5px;
+  background: var(--c-ink);
+  transition: transform .3s, opacity .3s, background-color .35s;
+}
+
+.kop--open .hamburger__lijn:first-child { transform: translateY(4px) rotate(45deg); }
+.kop--open .hamburger__lijn:last-child { transform: translateY(-4px) rotate(-45deg); }
+
+@media (min-width: 900px) {
+  .nav { display: block; }
+  .hamburger { display: none; }
+}
+
+/* --- Mobiel menu ------------------------------------------------ */
+
+.mobiel {
+  position: fixed;
+  inset: 0;
+  z-index: 89;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--s-8) var(--s-5);
+  background: var(--c-paper-warm);
+  animation: fade .3s ease both;
+}
+
+.mobiel ul { list-style: none; margin: 0; padding: 0; }
+
+.mobiel li { border-bottom: 1px solid var(--c-line-soft); }
+
+.mobiel a {
+  display: flex;
+  align-items: baseline;
+  gap: var(--s-3);
+  padding-block: var(--s-3);
+  font-family: var(--f-brand);
+  font-weight: 300;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  font-size: clamp(1.4rem, 6vw, 2rem);
+  text-decoration: none;
+  animation: rise .4s ease both;
+  animation-delay: calc(var(--i) * 60ms);
+}
+
+.mobiel__nr {
+  font-family: var(--f-brand);
+  font-size: .7rem;
+  letter-spacing: .16em;
+  color: var(--c-terracotta-ink);
+}
+
+.mobiel__voet {
+  margin-top: var(--s-7);
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: .95rem;
+  letter-spacing: .12em;
+  color: var(--c-ink-soft);
+}
+
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }

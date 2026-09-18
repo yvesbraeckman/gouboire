@@ -1,0 +1,126 @@
+:host { display: block; }
+
+/* --- Intro ------------------------------------------------------- */
+
+.intro {
+  display: grid;
+  gap: clamp(var(--s-5), 5vw, var(--s-8));
+  align-items: center;
+}
+
+.intro__titel { margin-top: var(--s-3); }
+
+.intro__regel { margin-block: var(--s-4) var(--s-5); }
+
+.intro__prose { color: var(--c-ink-soft); }
+.intro__prose p:first-child { color: var(--c-ink); font-size: var(--f-lead); }
+
+/* De foto is vierkant aangeleverd (764 × 773), dus geen uitsnede: zo blijven
+   het glas en het gilet in beeld. Het zwart-wit staat rustig tegen het papier;
+   de zachte rand houdt hem in dezelfde vormtaal als de andere beeldvlakken. */
+.intro__foto {
+  max-width: 420px;
+  width: 100%;
+  /* Nodig naast `aspect-ratio`: het height-attribuut in de HTML vertaalt naar
+     een echte CSS-hoogte, en die wint — `aspect-ratio` vult alleen een
+     ontbrekende maat in. Zonder dit wordt het vak 420 × 773 en snijdt
+     `cover` bijna de helft van de breedte weg. */
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  justify-self: center;
+  border-radius: var(--r-lg);
+  box-shadow: 0 1px 0 0 var(--c-line-soft), 0 18px 40px rgba(43, 35, 32, .12);
+}
+
+@media (min-width: 900px) {
+  .intro { grid-template-columns: 1.15fr .85fr; }
+  .intro__foto { justify-self: end; }
+}
+
+/* --- Verhaalstappen ---------------------------------------------- */
+
+/* De vier stappen lezen als een tijdlijn: één doorlopende hairline, met het
+   nummer en het accent als markering op die lijn. Eén kolom op elke
+   schermbreedte — de tekst begint altijd op dezelfde plek, zodat de lijn de
+   enige verticale as is en er geen dood wit tussen teken en tekst valt. */
+.stappen {
+  --gutter: clamp(38px, 7vw, 58px);
+  --kolomgap: clamp(var(--s-3), 3vw, var(--s-5));
+  /* Ruimer dan de standaard --w-text van 62ch: dit blok staat gecentreerd en
+     mag de sectie beter vullen. Rond 76ch zitten we nog net binnen een
+     comfortabele regellengte voor uitgevulde tekst. */
+  --maat: 76ch;
+
+  list-style: none;
+  /* Breedte van de tijdlijn zelf, horizontaal gecentreerd in de sectie. */
+  max-width: calc(var(--gutter) + var(--kolomgap) + var(--maat));
+  margin: clamp(var(--s-7), 8vw, var(--s-10)) auto 0;
+  padding: 0;
+  display: grid;
+}
+
+.stap {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--gutter) 1fr;
+  gap: var(--kolomgap);
+  padding-bottom: clamp(var(--s-6), 6vw, var(--s-8));
+}
+
+/* De lijn hoort bij de stap en niet bij de lijst: zo loopt ze door de ruimte
+   tussen twee stappen heen, en dooft ze onder de laatste uit in plaats van
+   er hard af te breken. */
+.stap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--gutter) / 2);
+  width: 1px;
+  background: var(--c-line);
+}
+
+.stap:last-child::before {
+  background: linear-gradient(var(--c-line), var(--c-line) 30%, transparent);
+}
+
+/* Nummer en accent vormen één markering op de lijn. De papierkleur erachter
+   onderbreekt de lijn, zodat die uit de markering lijkt te komen. */
+.stap__marge {
+  position: relative;
+  z-index: 1;
+  /* Zonder align-self rekt de markering mee met de rij en dekt haar
+     achtergrond de hele lijn af. */
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-2);
+  padding-bottom: var(--s-2);
+  background: var(--c-paper);
+}
+
+.stap__nr {
+  font-family: var(--f-brand);
+  font-weight: 400;
+  font-size: .72rem;
+  letter-spacing: .22em;
+  /* De letterspatie achter het laatste cijfer eraf, anders staat het nummer
+     een halve spatie naast de lijn. */
+  margin-right: -.22em;
+  line-height: 1;
+  color: var(--c-terracotta-ink);
+}
+
+.stap__accent {
+  width: clamp(26px, 4vw, 34px);
+  color: var(--c-olive);
+  opacity: .45;
+}
+
+/* Overschrijft de maxbreedte die .prose meebrengt. */
+.stap__body { max-width: var(--maat); }
+
+.stap__titel { margin-bottom: var(--s-3); }
+.stap__body p { color: var(--c-ink-soft); }

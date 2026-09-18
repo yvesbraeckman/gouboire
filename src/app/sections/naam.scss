@@ -1,0 +1,80 @@
+:host { display: block; }
+
+
+.naam {
+  background: var(--c-paper-warm);
+  text-align: center;
+  padding-block: clamp(var(--s-6), 6vw, var(--s-9));
+}
+
+.naam__inhoud {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* GOU en BOIRE zijn ongelijk lang. Centreer je de regel als geheel, dan
+   komt het embleem een halve woordlengte links van de middenas — net waar
+   de gouden streepjes en de alinea eronder die as wel aanhouden. Daarom
+   krijgt het embleem een eigen middenkolom met twee gelijke kolommen
+   ernaast; beide woorddelen schuiven naar het embleem toe, de lege ruimte
+   valt aan de buitenkant. */
+.woordspel {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
+  width: 100%;
+  gap: clamp(var(--s-2), 2vw, var(--s-5));
+  margin-top: var(--s-4);
+  font-family: var(--f-brand);
+  font-size: clamp(2rem, 1rem + 5vw, 4.25rem);
+  font-weight: 200;
+  line-height: 1;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.woordspel__deel { color: var(--c-ink); }
+/* De letterspatie achter de U valt aan de binnenkant; zonder deze
+   correctie staat het embleem optisch niet in het midden van de twee. */
+.woordspel__deel:first-child { justify-self: end; margin-right: -.16em; }
+.woordspel__deel:last-child { justify-self: start; }
+
+/* Het embleem staat tussen de twee woorddelen, net als in het logo. */
+.woordspel__embleem {
+  height: 2.1em;
+  width: auto;
+  aspect-ratio: 500 / 1108;
+  color: var(--c-terracotta);
+  translate: 0 .55em;
+}
+
+/* Ruim onder de woordspeling: de uitkomst mag even bezinken voor je haar
+   leest, en het embleem heeft onderaan lucht nodig. */
+.woordspel__uitkomst {
+  margin-top: clamp(var(--s-5), 4vw, var(--s-7));
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 1rem + 1.4vw, 2rem);
+  color: var(--c-ink);
+}
+
+.woordspel__uitkomst::before,
+.woordspel__uitkomst::after {
+  content: '';
+  display: inline-block;
+  width: clamp(24px, 6vw, 56px);
+  height: 1px;
+  margin-inline: var(--s-3);
+  translate: 0 -.35em;
+  background: var(--c-gold);
+}
+
+.naam__tekst {
+  max-width: 56ch;
+  margin-top: var(--s-5);
+  color: var(--c-ink-soft);
+}
+
+/* Gou en Boire alleen cursief, in de kleur van de alinea zelf. */
+.naam__tekst em { font-style: italic; }

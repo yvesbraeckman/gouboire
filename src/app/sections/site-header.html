@@ -1,0 +1,39 @@
+<header class="kop" [class.kop--vast]="gescrolld()" [class.kop--open]="menuOpen()">
+  <div class="container kop__balk">
+    <a class="merk" href="#top" (click)="sluit()" aria-label="Gouboire — naar boven">
+      <span class="logo logo--volledig merk__logo"></span>
+    </a>
+
+    <nav class="nav" aria-label="Hoofdnavigatie">
+      <ul>
+        @for (link of links; track link.id) {
+          <li><a [href]="'#' + link.id">{{ link.label }}</a></li>
+        }
+      </ul>
+    </nav>
+
+    <button type="button" class="hamburger" (click)="toggle()"
+            [attr.aria-expanded]="menuOpen()" aria-controls="mobiel-menu">
+      <span class="visually-hidden">{{ menuOpen() ? 'Menu sluiten' : 'Menu openen' }}</span>
+      <span class="hamburger__lijn"></span>
+      <span class="hamburger__lijn"></span>
+    </button>
+  </div>
+</header>
+
+@if (menuOpen()) {
+  <div class="mobiel" id="mobiel-menu">
+    <nav aria-label="Mobiele navigatie">
+      <ul>
+        @for (link of links; track link.id; let i = $index) {
+          <li [style.--i]="i">
+            <a [href]="'#' + link.id" (click)="sluit()">
+              <span class="mobiel__nr">0{{ i + 1 }}</span>{{ link.label }}
+            </a>
+          </li>
+        }
+      </ul>
+    </nav>
+    <p class="mobiel__voet">Gouboire — Wijnbeleving.</p>
+  </div>
+}

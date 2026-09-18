@@ -1,0 +1,61 @@
+/* ---------------------------------------------------------------
+   Gouboire — design tokens
+   Alle kleuren, typografie en spacing staan hier. Componenten
+   gebruiken uitsluitend deze variabelen, nooit losse hex-codes.
+   --------------------------------------------------------------- */
+
+:root {
+  /* Papier & inkt */
+  --c-paper:        #f7f1e7;
+  --c-paper-warm:   #f1e7d8;
+  --c-paper-deep:   #ebdfcc;
+  --c-ink:          #2b2320;
+  --c-ink-soft:     #6b5f52;
+
+  /* Accenten */
+  --c-terracotta:      #b4552d; /* vlakken, knoppen */
+  --c-terracotta-ink:  #9a4423; /* terracotta als tekstkleur (AA op papier) */
+  --c-olive:           #5a6b4b;
+  --c-olive-deep:      #3b4433; /* donkere band, Zuid-Afrika */
+  --c-gold:            #c2a868; /* enkel decoratief: lijnen, randen */
+  --c-gold-light:      #d2bf87; /* gold als tekst op donkere achtergrond */
+
+  --c-line:       rgba(43, 35, 32, 0.14);
+  --c-line-soft:  rgba(43, 35, 32, 0.08);
+  --c-line-light: rgba(247, 241, 231, 0.22);
+
+  /* Typografie */
+  /* --f-brand echoot de lettervormen van het logo: dun, geometrisch, ruim gespatieerd. */
+  --f-brand: 'Jost', 'Futura', 'Century Gothic', system-ui, sans-serif;
+  --f-serif: 'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --f-sans:  'Work Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Schreefkoppen in onderkast mogen groter en rustiger staan. */
+  --f-display: clamp(2.5rem, 1.5rem + 4.4vw, 5rem);
+  --f-h2:      clamp(1.9rem, 1.35rem + 2.4vw, 3.1rem);
+  --f-h3:      clamp(1.3rem, 1.15rem + 0.7vw, 1.7rem);
+  --f-lead:    clamp(1.1rem, 1.02rem + 0.4vw, 1.35rem);
+  --f-small:   0.875rem;
+
+  /* Spacing — 8px-schaal */
+  --s-1: 0.5rem;
+  --s-2: 0.75rem;
+  --s-3: 1rem;
+  --s-4: 1.5rem;
+  --s-5: 2rem;
+  --s-6: 2.5rem;
+  --s-7: 3rem;
+  --s-8: 4rem;
+  --s-9: 5rem;
+  --s-10: 6.5rem;
+  --s-11: 8rem;
+  --s-12: 10rem;
+
+  /* Layout */
+  --w-page: 1140px;
+  --w-text: 62ch;
+  --r-sm: 4px;
+  --r-md: 10px;
+  --r-lg: 20px;
+  --header-h: 64px; /* de compacte, gescrolde balk — voedt scroll-margin-top */
+}

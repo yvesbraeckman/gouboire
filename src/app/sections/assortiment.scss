@@ -1,0 +1,188 @@
+:host { display: block; }
+
+/* De kop mag breed genoeg zijn voor de intro; de titel breekt zelf. */
+.kop { max-width: 56ch; }
+.kop__titel { margin-top: var(--s-3); max-width: 16ch; }
+.kop__regel { margin-top: var(--s-4); }
+
+.kop__intro {
+  margin-top: var(--s-4);
+  max-width: 52ch;
+  font-family: var(--f-serif);
+  font-size: clamp(1.1rem, 1rem + .7vw, 1.4rem);
+  line-height: 1.5;
+  color: var(--c-ink-soft);
+}
+
+/* --- Regiokaarten ------------------------------------------------ */
+
+.regios {
+  display: grid;
+  gap: var(--s-4);
+  margin-top: clamp(var(--s-6), 6vw, var(--s-8));
+}
+
+.regio {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(var(--s-5), 4vw, var(--s-7));
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: linear-gradient(165deg, var(--c-paper-warm), var(--c-paper));
+  transition: border-color .3s, transform .3s;
+}
+
+.regio:hover { border-color: var(--c-gold); transform: translateY(-3px); }
+
+.regio__art {
+  position: absolute;
+  right: -8%;
+  top: -6%;
+  width: 46%;
+  color: var(--c-olive);
+  opacity: .12;
+  pointer-events: none;
+}
+
+.regio__rol {
+  position: relative;
+  font-family: var(--f-brand);
+  font-size: .68rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--c-terracotta-ink);
+}
+
+.regio__naam {
+  margin-top: var(--s-2);
+  font-family: var(--f-serif);
+  font-size: clamp(2rem, 1.5rem + 2vw, 3rem);
+  font-weight: 400;
+  line-height: 1.05;
+}
+
+.regio__tekst {
+  margin-top: var(--s-3);
+  max-width: 40ch;
+  color: var(--c-ink-soft);
+}
+
+/* --- Een kijk in het aanbod --------------------------------------- */
+
+.kijker {
+  margin-top: clamp(var(--s-7), 7vw, var(--s-9));
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--c-line-soft);
+}
+
+.kijker__titel { font-size: var(--f-h3); }
+
+.kijker__lead {
+  margin-top: var(--s-2);
+  max-width: 54ch;
+  color: var(--c-ink-soft);
+}
+
+.wijnen {
+  list-style: none;
+  margin: clamp(var(--s-5), 5vw, var(--s-7)) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--s-5);
+}
+
+/* Flexkolom zodat de kaarten in een rij even hoog blijven, ongeacht hoe lang
+   de beschrijving uitvalt. */
+.wijn {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Packshots: de fles staat vóór een papiervlak en wordt nooit bijgesneden.
+   Zonder foto tekent app-photo-slot zijn eigen vlak — vandaar dat de
+   plaatshouder niet in dit vlak gewikkeld wordt. */
+.wijn__beeld {
+  aspect-ratio: 4 / 5;
+  border: 1px solid var(--c-line-soft);
+  border-radius: var(--r-md);
+  /* Vlak en licht, want de packshots worden erover vermenigvuldigd. */
+  background: var(--c-paper);
+  overflow: hidden;
+}
+
+.wijn__beeld img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: var(--s-4);
+}
+
+.wijn__huis {
+  margin-top: var(--s-4);
+  font-family: var(--f-brand);
+  font-size: .68rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  color: var(--c-terracotta-ink);
+}
+
+.wijn__naam {
+  margin-top: var(--s-2);
+  font-family: var(--f-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.wijn__herkomst {
+  margin-top: var(--s-2);
+  font-family: var(--f-brand);
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--c-ink-soft);
+}
+
+/* Bewust geen .prose: _base.scss vult die vanaf 640px uit, en in een kolom van
+   ±30 tekens levert dat enorme woordgaten op. */
+.wijn__tekst {
+  margin-top: var(--s-3);
+  padding-top: var(--s-3);
+  border-top: 1px solid var(--c-line-soft);
+  font-size: .92rem;
+  line-height: 1.6;
+  color: var(--c-ink-soft);
+}
+
+/* --- De catalogus -------------------------------------------------- */
+
+/* Zelfde patroon als het blok met de uitgelichte wijnen: dunne lijn erboven,
+   kleine kop, korte lead. */
+.catalogus {
+  margin-top: clamp(var(--s-7), 7vw, var(--s-9));
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--c-line-soft);
+}
+
+.catalogus__titel { font-size: var(--f-h3); }
+
+.catalogus__lead {
+  margin-top: var(--s-2);
+  margin-bottom: clamp(var(--s-5), 5vw, var(--s-6));
+  max-width: 54ch;
+  color: var(--c-ink-soft);
+}
+
+@media (min-width: 620px) {
+  .wijnen { grid-template-columns: repeat(2, 1fr); gap: var(--s-6); }
+}
+
+@media (min-width: 1000px) {
+  .wijnen { grid-template-columns: repeat(4, 1fr); gap: var(--s-5); }
+}
+
+@media (min-width: 800px) {
+  .regios { grid-template-columns: repeat(2, 1fr); gap: var(--s-5); }
+}
